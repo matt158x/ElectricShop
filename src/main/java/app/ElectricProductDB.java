@@ -12,6 +12,8 @@ public class ElectricProductDB {
         this.electricProducts[4] = new Smartphones("Smartphone", "Apple","14", 1500, 5201204, 11);
         this.electricProducts[5] = new Tablets("Tablet", "Lenovo","M10", 400, 5932912, 5);
         this.electricProducts[6] = new Smartwatches("Smartwatch", "Apple","5", 700, 1594391, 9);
+        this.electricProducts[7] = new Smartwatches("Smartwatch", "Xiaomi","mi band 5", 200, 3494153, 5);
+
     }
 
     public ElectricProduct[] getElectricProducts() {
@@ -30,11 +32,10 @@ public class ElectricProductDB {
                     return true;
                 }
 
-                if (electricProduct.getInStock() != 0) {
+                if (electricProduct.getInStock() < amount) {
                     System.out.println("You can buy " + electricProduct.getInStock() + " pieces of this product at the moment");
                 }
 
-                return false;
             }
         }
 
@@ -57,8 +58,6 @@ public class ElectricProductDB {
             if(electricProduct.getCode() == code ){
                 electricProduct.setInStock(electricProduct.getInStock() + amount);
                 return true;
-            } else {
-                return false;
             }
 
         }
