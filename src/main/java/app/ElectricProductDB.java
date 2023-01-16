@@ -1,26 +1,31 @@
 package app;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class ElectricProductDB {
-    private ElectricProduct[] electricProducts = new ElectricProduct[8];
+    private List <ElectricProduct> electricProducts = new LinkedList<>();
     private static final ElectricProductDB instance = new ElectricProductDB();
 
     public ElectricProductDB() {
-        this.electricProducts[0] = new Laptops("Laptop","Hp", "Omen", 1200, 1118372, 4);
-        this.electricProducts[1] = new Laptops("Laptop","Lenovo", "Legion", 1000, 1503222, 8);
-        this.electricProducts[2] = new Laptops("Laptop","Asus", "RogStrix", 1600, 1530412, 3);
-        this.electricProducts[3] = new Desktops("Desktop", "Dell","W20", 2050, 2153291, 2);
-        this.electricProducts[4] = new Smartphones("Smartphone", "Apple","14", 1500, 5201204, 11);
-        this.electricProducts[5] = new Tablets("Tablet", "Lenovo","M10", 400, 5932912, 5);
-        this.electricProducts[6] = new Smartwatches("Smartwatch", "Apple","5", 700, 1594391, 9);
-        this.electricProducts[7] = new Smartwatches("Smartwatch", "Xiaomi","mi band 5", 200, 3494153, 5);
+        this.electricProducts.add(new Laptops("Laptop","Hp", "Omen", 1200, 1118372, 4));
+        this.electricProducts.add(new Laptops("Laptop","Lenovo", "Legion", 1000, 1503222, 8));
+        this.electricProducts.add(new Laptops("Laptop","Asus", "RogStrix", 1600, 1530412, 3));
+        this.electricProducts.add(new Desktops("Desktop", "Dell","W20", 2050, 2153291, 2));
+        this.electricProducts.add(new Smartphones("Smartphone", "Apple","14", 1500, 5201204, 11));
+        this.electricProducts.add(new Tablets("Tablet", "Lenovo","M10", 400, 5932912, 5));
+        this.electricProducts.add(new Smartwatches("Smartwatch", "Apple","5", 700, 1594391, 9));
+        this.electricProducts.add(new Smartwatches("Smartwatch", "Xiaomi","mi band 5", 200, 3494153, 5));
 
     }
 
-    public ElectricProduct[] getElectricProducts() {
+    public List <ElectricProduct> getElectricProducts() {
         return this.electricProducts;
     }
 
     public boolean buyVehicle(int code, int amount) {
+
+        /*
         ElectricProduct[] var3 = this.electricProducts;
         int var4 = var3.length;
 
@@ -42,19 +47,31 @@ public class ElectricProductDB {
         return false;
     }
 
+         */
+
+        return this.electricProducts.stream().filter(s -> s.getCode() == code)
+                .filter(s -> s.getInStock() >= amount)
+                .map(s -> {
+                s.setInStock(s.getInStock() - amount);
+                return true;
+                })
+                .findFirst()
+                .orElse(false);
+    }
+
     public void addElectricProduct(ElectricProduct electricProduct) {
-        ElectricProduct[] newElectricProducts = new ElectricProduct[this.electricProducts.length + 1];
+       /* ElectricProduct[] newElectricProducts = new ElectricProduct[this.electricProducts.length + 1];
 
         for(int i = 0; i < this.electricProducts.length; ++i) {
             newElectricProducts[i] = this.electricProducts[i];
         }
 
-        newElectricProducts[newElectricProducts.length - 1] = electricProduct;
-        this.electricProducts = newElectricProducts;
+        newElectricProducts[newElectricProducts.length - 1] = electricProduct;  */
+        this.electricProducts.add(electricProduct);
     }
 
     public boolean addStock(int code, int amount) {
-        for(ElectricProduct electricProduct : this.electricProducts) {
+       /* for(ElectricProduct electricProduct : this.electricProducts) {
             if(electricProduct.getCode() == code ){
                 electricProduct.setInStock(electricProduct.getInStock() + amount);
                 return true;
@@ -62,8 +79,16 @@ public class ElectricProductDB {
 
         }
         return false;
-    }
+    }*/
 
+        return this.electricProducts.stream().filter(s -> s.getCode() == code)
+                .map(s -> {
+                s.setInStock(s.getInStock() + amount);
+                return true;
+                })
+                .findFirst()
+                .orElse(false);
+    }
 
     public static ElectricProductDB getInstance() {
         return instance;

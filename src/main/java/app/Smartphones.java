@@ -1,6 +1,6 @@
 package app;
 
-public class Smartphones extends ElectricProduct {
+public final class Smartphones extends ElectricProduct {
     public Smartphones(String type, String brand, String model, double price, int code, int inStock) {
         super(type,brand, model, price, code, inStock);
     }

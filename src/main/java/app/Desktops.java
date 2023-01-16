@@ -1,6 +1,6 @@
 package app;
 
-public class Desktops extends ElectricProduct {
+public final class Desktops extends ElectricProduct {
 
 
     public Desktops(String type, String brand, String model, double price, int code, int inStock) {

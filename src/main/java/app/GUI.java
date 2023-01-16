@@ -39,25 +39,15 @@ public class GUI {
     }
 
     public void listUsers() {
-        app.User[] var1 = this.userDB.getUsers();
-        int var2 = var1.length;
-
-        for(int var3 = 0; var3 < var2; ++var3) {
-            app.User user = var1[var3];
+        for (User user : this.userDB.getUsers()) {
             System.out.println(user);
         }
-
-    }
-
-    public void listElectricProducts() {
-        ElectricProduct[] var1 = this.electricProductDB.getElectricProducts();
-        int var2 = var1.length;
-
-        for(int var3 = 0; var3 < var2; ++var3) {
-            ElectricProduct electricProduct = var1[var3];
-            System.out.println(electricProduct);
         }
 
+    public void listElectricProducts() {
+        for (ElectricProduct electricProduct : this.electricProductDB.getElectricProducts()) {
+            System.out.println(electricProduct);
+        }
     }
 
     public int readCode() {
